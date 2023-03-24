@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import patientorService from '../services/patientorService';
-import {v1 as uuid} from 'uuid';
+import toNewPatient from '../utils';
 
 router.get('/', (_req, res) => {
   const patients = patientorService.getNonSSNEntries();
@@ -9,10 +9,17 @@ router.get('/', (_req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { name, dateOfBirth, ssn, gender, occupation } = req.body;
-  const addedPatient = patientorService.addPatient(name, dateOfBirth, ssn, gender, occupation);
-  const id = uuid();
-  res.json();
+  try {
+    const newEntry = toNewPatient(req.body);
+    const addedPatient = patientorService.addPatient(newEntry);
+    res.json(addedPatient);
+  } catch (error) {
+    let errorMessage = 'Something went wrong.';
+    if (error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    res.status(400).send(errorMessage);
+  }
 });
 
 export default router;
