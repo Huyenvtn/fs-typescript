@@ -3,5 +3,6 @@
     "./bmi",
     "./patientor",
     "./patientor_be",
+    "./courses"
   ]
 }
