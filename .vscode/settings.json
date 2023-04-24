@@ -3,6 +3,8 @@
     "./bmi",
     "./patientor",
     "./patientor_be",
-    "./courses"
+    "./courses",
+    "./flight-diary",
+    "./flight-diary-fe"
   ]
 }
