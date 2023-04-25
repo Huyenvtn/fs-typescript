@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { NewDiaryEntry } from '../reducers/diaryReducer'
 const baseUrl = 'http://localhost:3000/api/diaries'
 
 const getDiaries = async () => {
@@ -7,12 +7,12 @@ const getDiaries = async () => {
   return res.data
 }
 
-const findDiary = async id => {
+const findDiary = async (id: unknown) => {
   const res = await axios.get(`${baseUrl}/${id}`)
   return res.data
 }
 
-const createDiary = async object => {
+const createDiary = async (object: NewDiaryEntry) => {
   const res = await axios.post(baseUrl, object)
   return res.data
 }

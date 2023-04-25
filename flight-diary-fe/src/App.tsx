@@ -1,23 +1,19 @@
-import { connect } from 'react-redux'
+import { useSelector /*, useDispatch /*, connect */} from 'react-redux'
+import { RootState } from './store/store'
+// import { setDiaries, appendDiary } from './reducers/diaryReducer'
 import { initializeDiaries } from './reducers/diaryReducer'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 
-const App = props => {
-  useEffect(()=> {
-    props.initializeDiaries()
-  }, [])
+const App = () => {
+  const diaries = useSelector((state: RootState) => state.diaries);
+  // const dispatch = useDispatch();
+  initializeDiaries()
+  // dispatch(appendDiary({}));
+  // useEffect(()=> {
+  // }, [])
   return (
-    <>{props.diaries}</>
+    <>{diaries}</>
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    diaries: state.diaries
-  }
-}
-
-const mapDispatchToProps = {
-  initializeDiaries
-}
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
