@@ -1,18 +1,28 @@
-import { useSelector /*, useDispatch /*, connect */} from 'react-redux'
+import { useSelector , useDispatch /*, connect */} from 'react-redux'
 import { RootState } from './store/store'
-// import { setDiaries, appendDiary } from './reducers/diaryReducer'
-import { initializeDiaries } from './reducers/diaryReducer'
-// import { useEffect } from 'react'
+import { setDiaries, appendDiary } from './reducers/diaryReducer'
+import diaryService from './services/diaryService'
+// import { initializeDiaries } from './reducers/diaryReducer'
+import { useEffect } from 'react'
 
 const App = () => {
-  const diaries = useSelector((state: RootState) => state.diaries);
-  // const dispatch = useDispatch();
-  initializeDiaries()
+  const diariesL = useSelector((state: RootState) => state.diaries);
+  const dispatch = useDispatch();
+  // initializeDiaries()
+  // console.log(diariesL);
   // dispatch(appendDiary({}));
-  // useEffect(()=> {
-  // }, [])
+  useEffect(()=> {
+    const fetchDiaryList = async () => {
+      const diaries = await diaryService.getDiaries()
+      // console.log(diaries);
+      dispatch(setDiaries(diaries));
+    }
+    fetchDiaryList()
+  }, [dispatch])
+  
+  console.log(diariesL);
   return (
-    <>{diaries}</>
+    <>Đây nè má {diariesL}</>
   )
 }
 
