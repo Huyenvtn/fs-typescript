@@ -1,28 +1,35 @@
-import { useSelector , useDispatch /*, connect */} from 'react-redux'
+import { useSelector , useDispatch } from 'react-redux'
 import { RootState } from './store/store'
-import { setDiaries, appendDiary } from './reducers/diaryReducer'
+import { setDiaries, appendDiary, NewDiaryEntry } from './reducers/diaryReducer'
 import diaryService from './services/diaryService'
-// import { initializeDiaries } from './reducers/diaryReducer'
 import { useEffect } from 'react'
+import Diary from './Diary'
+import AddNewForm from './AddNewForm'
 
 const App = () => {
-  const diariesL = useSelector((state: RootState) => state.diaries);
+  const diariesList = useSelector((state: RootState) => state.diaries);
   const dispatch = useDispatch();
-  // initializeDiaries()
-  // console.log(diariesL);
-  // dispatch(appendDiary({}));
+  const createDiary = async (obj: NewDiaryEntry) => {
+    const newDiary = await diaryService.createDiary(obj)
+    dispatch(appendDiary(newDiary));
+  }
+
   useEffect(()=> {
     const fetchDiaryList = async () => {
       const diaries = await diaryService.getDiaries()
-      // console.log(diaries);
       dispatch(setDiaries(diaries));
     }
     fetchDiaryList()
   }, [dispatch])
   
-  console.log(diariesL);
   return (
-    <>Đây nè má {diariesL}</>
+    <>
+      <AddNewForm createDiary={createDiary} />
+      <h2>Diary entries</h2>
+      {diariesList.map(item => {
+        return <Diary key={item.id} id={item.id} date={item.date} visibility={item.visibility} weather={item.weather} comment={item.comment} />
+      })}
+    </>
   )
 }
 

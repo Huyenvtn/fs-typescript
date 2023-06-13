@@ -4,10 +4,10 @@ import toNewDiaryEntry from "../src/utils";
 const data = [
   {
       "id": 1,
-      "date": "2017-01-01", //
-      "weather": "rainy", //
-      "visibility": "poor", // 
-      "comment": "Pretty scary flight, I'm glad I'm alive" //?
+      "date": "2017-01-01",
+      "weather": "rainy",
+      "visibility": "poor",
+      "comment": "Pretty scary flight, I'm glad I'm alive"
   },
   {
       "id": 2,

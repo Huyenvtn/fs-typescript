@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { /*useSelector, useDispatch /*, connect */} from 'react-redux'
 
 export enum Weather {
   Sunny = 'sunny',
@@ -15,7 +14,7 @@ export enum Visibility {
   Ok = 'ok',
   Poor = 'poor',
 }
-export interface DiaryState {
+export interface DiaryEntry {
   id: number;
   date: string;
   weather: Weather;
@@ -23,25 +22,25 @@ export interface DiaryState {
   comment: string;
 }
 
-export type NewDiaryEntry = Omit<DiaryState, 'id'>;
+export type NewDiaryEntry = Omit<DiaryEntry, 'id'>;
 
-const initialState: DiaryState[] = []
+const initialState: DiaryEntry[] = []
 
 const diarySlice = createSlice({
   name: 'diaries',
   initialState,
   reducers: {
-    setDiaries: (state, action: PayloadAction<DiaryState[]>) => {
-      // const diaries = diaryService.getDiaries()
-    console.log('hhi', action.payload);
-      state = action.payload
+    setDiaries(state, action: PayloadAction<DiaryEntry[]>) {
+      state = action.payload 
+      console.log('hihi', state);
+      return state
+     
     },
-    appendDiary: (state, action: PayloadAction<DiaryState>) => {
+    appendDiary(state, action: PayloadAction<DiaryEntry>) { //
       state.push(action.payload)
     }
   }
 })
-
 
 // export const initializeDiaries = () => {
 //   return async dispatch => {
