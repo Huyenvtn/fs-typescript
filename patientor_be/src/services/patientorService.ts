@@ -11,6 +11,12 @@ const getNonSSNEntries = () : NonSSNPatient[] => {
     id, name, dateOfBirth, gender, occupation
   }));
 };
+
+const getEntryById = (id: string): Patient | undefined => {
+  const entry = patients.find(d => d.id === id);
+  return entry;
+};
+
 const addPatient = (entry: NewPatient): Patient => {
   const newPatient = {
     id: uuid(),
@@ -23,5 +29,6 @@ const addPatient = (entry: NewPatient): Patient => {
 export default {
   getEntries,
   getNonSSNEntries,
+  getEntryById,
   addPatient
 };
