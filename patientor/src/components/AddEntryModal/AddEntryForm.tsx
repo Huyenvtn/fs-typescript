@@ -150,7 +150,6 @@ const AddEntryForm = ({ onCancel, onSubmit, codes }: Props) => {
           <TextField
             variant="standard"
             label="Description"
-            placeholder="YYYY-MM-DD"
             fullWidth
             value={description}
             onChange={({ target }) => setDescription(target.value)}

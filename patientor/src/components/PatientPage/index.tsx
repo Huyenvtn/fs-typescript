@@ -52,7 +52,6 @@ const PatientPage = () => {
     const fetchPatientListt = async () => {
       if (id) {
         const patientt = await patientService.getById(id);
-        console.log('patient', patientt);
         setPatient(patientt);
         const codeList = await diagnoses.getCodes();
         setCodes(codeList);

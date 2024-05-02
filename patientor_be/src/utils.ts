@@ -101,13 +101,10 @@ const parseSickLeave = (sickLeave: unknown): SickLeave => {
 };
 
 const parseHealthCheckRating = (rating: unknown): number => {
-  console.log(rating)
   if (!isNumber(rating)) {
-    console.log(typeof rating)
     throw new Error('Incorrect or missing health check rating');
   }
   if (rating > 5) {
-    console.log(typeof rating)
     throw new Error('Value of HealthCheckRating incorrect: ' + rating);
   }
   return rating;
@@ -158,7 +155,6 @@ const toNewEntry = (object: unknown): NewEntry => {
         }
         throw new Error('Incorrect data: a field missing');
       case 'OccupationalHealthcare':
-        console.log('eee', object);
         if ('diagnoseCodes' in object && 'sickLeave' in object && 'employerName' in object) {
           const newEntry : NewEntry = {
             date: parseDate(object.date),
