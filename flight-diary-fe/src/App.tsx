@@ -5,13 +5,20 @@ import diaryService from './services/diaryService'
 import { useEffect } from 'react'
 import Diary from './Diary'
 import AddNewForm from './AddNewForm'
+import { AxiosError } from 'axios'
 
 const App = () => {
   const diariesList = useSelector((state: RootState) => state.diaries);
   const dispatch = useDispatch();
   const createDiary = async (obj: NewDiaryEntry) => {
     const newDiary = await diaryService.createDiary(obj)
-    dispatch(appendDiary(newDiary));
+    if (newDiary) {
+      if (newDiary instanceof AxiosError) {
+        // set error here
+      } else {
+        dispatch(appendDiary(newDiary));
+      }
+    }
   }
 
   useEffect(()=> {
@@ -24,7 +31,7 @@ const App = () => {
   
   return (
     <>
-      <AddNewForm createDiary={createDiary} />
+      <AddNewForm createDiary={createDiary}  />
       <h2>Diary entries</h2>
       {diariesList.map(item => {
         return <Diary key={item.id} id={item.id} date={item.date} visibility={item.visibility} weather={item.weather} comment={item.comment} />
